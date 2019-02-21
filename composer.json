@@ -1,0 +1,22 @@
+{
+    "name": "hackerpro536/pdo-class-wrapper",
+    "type": "library",
+    "description": "JpegFit have class for Optimaze image.",
+    "keywords": ["pdo","mysql", "database", "db", "pdohelper", "pdo-class-wrapper", "mysql-class"],
+    "homepage": "https://github.com/hackerpro536/PDO_Class_Wrapper",
+    "license": "LGPL-3.0",
+    "authors": [
+        {
+            "name": "Le Van Phu",
+            "email": "hackerpro536@gmail.com",
+            "homepage": "https://github.com/hackerpro536/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.0.0"
+    },
+    "autoload": {
+        "files": ["class.pdohelper.php"]
+    }
+}
