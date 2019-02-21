@@ -1,7 +1,7 @@
 {
     "name": "hackerpro536/pdo-class-wrapper",
     "type": "library",
-    "description": "JpegFit have class for Optimaze image.",
+    "description": "PDO Class Wrapper is a wrapper class of PDO (PHP Data Object) library.  As we know that in any web application, database makes an important role for developer to create a good dynamic web application.",
     "keywords": ["pdo","mysql", "database", "db", "pdohelper", "pdo-class-wrapper", "mysql-class"],
     "homepage": "https://github.com/hackerpro536/PDO_Class_Wrapper",
     "license": "LGPL-3.0",
