@@ -17,6 +17,6 @@
         "php": ">=5.0.0"
     },
     "autoload": {
-        "files": ["class.pdohelper.php"]
+        "files": ["class/class.pdowrapper.php"]
     }
 }
