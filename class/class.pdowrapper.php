@@ -174,18 +174,23 @@ class PdoWrapper extends PDO
         extract($this->db_info);
         // try catch block start
         try {
-            // use native pdo class and connect
-            parent::__construct("mysql:host=$host; dbname=$dbname", $username, $password, array(
-                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
-            ));
+            // 1. Xác định hằng số Init Command một cách an toàn
+            $mysqlAttrInit = defined('\Pdo\Mysql::ATTR_INIT_COMMAND') 
+                ? constant('\Pdo\Mysql::ATTR_INIT_COMMAND') 
+                : \PDO::MYSQL_ATTR_INIT_COMMAND;
+            // 2. Truyền vào constructor
+            parent::__construct(
+                "mysql:host=$host;dbname=$dbname", 
+                $username, 
+                $password, 
+                [
+                    $mysqlAttrInit => "SET NAMES utf8",
+                ]
+            );
             // set pdo error mode silent
             $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
-            /** If you want to Show Class exceptions on Screen, Uncomment below code **/
             $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            /** Use this setting to force PDO to either always emulate prepared statements (if TRUE),
-            or to try to use native prepared statements (if FALSE). **/
             $this->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
-            // set default pdo fetch mode as fetch assoc
             $this->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             // get pdo error and pass on error method
