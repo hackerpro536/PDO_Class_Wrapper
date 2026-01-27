@@ -460,6 +460,8 @@ class PdoWrapper extends PDO
             } // if end here
             // use try catch block to get pdo error
             try {
+                // Log to DebugBar/Tracy
+                VSDebug::logQuery($this->sSql, $aWhere);
                 // check if pdo execute
                 if ($this->_oSTH->execute()) {
                     // set class property with affected rows
