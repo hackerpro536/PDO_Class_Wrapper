@@ -1,18 +1,11 @@
 <?php
 /**
  * PdoWrapper
- *
+ * @since 26/01/2026
  * PdoWrapper for using PDO methods
- *
- * PHP version 5.3.13
+ * PHP version 8.x
  * @category   PHP Class
  * @package    PdoWrapper (PDO)
- *
- * @example code
- *
- * $config = array("host"=>"localhost", "dbname"=>'sampledb', "username"=>'root', "password"=>'');
- * $db = new PdoWrapper($config);
- * $db->setErrorLog(true);
  */
 
 /**
