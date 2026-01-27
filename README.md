@@ -1,13 +1,14 @@
 <h4>PHP PDO Class Wrapper</h4>
 <h5>[A Wrapper Class of PDO]</h5>
-*Version 1.2 (Beta)*
-<h6>*Version 1.4 Coming Soon(Beta)*</h6>
+*Version 1.3 *
+<h6>New update for PHP8</h6>
 
 <h5>Project information</h5>
 - Started: 20 September 2017.
 - Project Manager: [HackerPro536 (LE VAN PHU)](http://levanphu.info) <hackerpro536@gmail.com>.
 - Copyrights: 2017 LP Group.
-- Version: 0.1
+- Version: 1.3
+- PHP 8.x
 
 Our Service - Dịch vụ của chúng tôi
 ----------------------------
