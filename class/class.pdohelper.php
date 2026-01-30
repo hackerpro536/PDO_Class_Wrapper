@@ -1,6 +1,7 @@
 <?php
 /**
  * PdoHelper
+ * PHP version 8.x
  *
  * Pdo Helper for using PDO methods with Helper functions
  * @category   PHP PDO Helper Class
@@ -141,5 +142,3 @@ class PDOHelper {
     }
 
 }
-/** Class End **/
-?>

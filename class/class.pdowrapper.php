@@ -1,8 +1,9 @@
 <?php
 /**
  * PdoWrapper
- * @since 26/01/2026
+ *
  * PdoWrapper for using PDO methods
+ *
  * PHP version 8.x
  * @category   PHP Class
  * @package    PdoWrapper (PDO)
@@ -328,12 +329,17 @@ class PdoWrapper extends PDO
             try {
                 // execute pdo statement
                 if ($this->_oSTH->execute()) {
+                    
                     // get affected rows and set it to class property
                     $this->iAffectedRows = $this->_oSTH->rowCount();
                     // set pdo result array with class property
                     $this->aResults = $this->_oSTH->fetchAll();
                     // close pdo cursor
                     $this->_oSTH->closeCursor();
+                    if(is_callable(['VSDebug', 'logQuery']))
+                    {
+                        VSDebug::logQuery($this->sSql, $aBindWhereParam);
+                    }
                     // return pdo result
                     return $this;
                 } else {
@@ -358,37 +364,42 @@ class PdoWrapper extends PDO
             try {
                 // run pdo statement with bind param
                 if ($this->_oSTH->execute()) {
+                    
                     // check operation type
                     switch ($operation[0]):
-                case 'SELECT':
-                    // get affected rows by select statement
-                    $this->iAffectedRows = $this->_oSTH->rowCount();
-                    // get pdo result array
-                    $this->aResults = $this->_oSTH->fetchAll();
-                    // return PDO instance
-                    return $this;
-                    break;
-                case 'INSERT':
-                    // return last insert id
-                    $this->iLastId = $this->lastInsertId();
-                    // return PDO instance
-                    return $this;
-                    break;
-                case 'UPDATE':
-                    // get affected rows
-                    $this->iAffectedRows = $this->_oSTH->rowCount();
-                    // return PDO instance
-                    return $this;
-                    break;
-                case 'DELETE':
-                    // get affected rows
-                    $this->iAffectedRows = $this->_oSTH->rowCount();
-                    // return PDO instance
-                    return $this;
-                    break;
+                        case 'SELECT':
+                            // get affected rows by select statement
+                            $this->iAffectedRows = $this->_oSTH->rowCount();
+                            // get pdo result array
+                            $this->aResults = $this->_oSTH->fetchAll();
+                            // return PDO instance
+                            return $this;
+                            break;
+                        case 'INSERT':
+                            // return last insert id
+                            $this->iLastId = $this->lastInsertId();
+                            // return PDO instance
+                            return $this;
+                            break;
+                        case 'UPDATE':
+                            // get affected rows
+                            $this->iAffectedRows = $this->_oSTH->rowCount();
+                            // return PDO instance
+                            return $this;
+                            break;
+                        case 'DELETE':
+                            // get affected rows
+                            $this->iAffectedRows = $this->_oSTH->rowCount();
+                            // return PDO instance
+                            return $this;
+                            break;
                     endswitch;
                     // close pdo cursor
                     $this->_oSTH->closeCursor();
+                    if(is_callable(['VSDebug', 'logQuery']))
+                    {
+                        VSDebug::logQuery($this->sSql, $aBindWhereParam);
+                    }
                 } else {
                         self::error($this->_oSTH->errorInfo());
                 }
@@ -453,9 +464,8 @@ class PdoWrapper extends PDO
             } // if end here
             // use try catch block to get pdo error
             try {
-                // Log to DebugBar/Tracy
-                VSDebug::logQuery($this->sSql, $aWhere);
                 // check if pdo execute
+                
                 if ($this->_oSTH->execute()) {
                     // set class property with affected rows
                     $this->iAffectedRows = $this->_oSTH->rowCount();
@@ -463,6 +473,10 @@ class PdoWrapper extends PDO
                     $this->aResults = $this->_oSTH->fetchAll();
                     // close pdo
                     $this->_oSTH->closeCursor();
+                    if(is_callable(['VSDebug', 'logQuery']))
+                    {
+                        VSDebug::logQuery($this->sSql, $aWhere);
+                    }
                     // return self object
                     return $this;
                 } else {
@@ -519,6 +533,10 @@ class PdoWrapper extends PDO
                         // close pdo
                         $this->_oSTH->closeCursor();
                         // return this object
+                        if(is_callable(['VSDebug', 'logQuery']))
+                        {
+                            VSDebug::logQuery($this->sSql, $aData);
+                        }
                         return $this;
                     } else {
                         self::error($this->_oSTH->errorInfo());
@@ -699,11 +717,16 @@ class PdoWrapper extends PDO
                 try {
                     // if PDO run
                     if ($this->_oSTH->execute()) {
+                        
                         // get affected rows
                         $this->iAffectedRows = $this->_oSTH->rowCount();
                         // close PDO
                         $this->_oSTH->closeCursor();
                         // return self object
+                        if(is_callable(['VSCache', 'clearDatabaseCache']))
+                        {
+                            VSCache::clearDatabaseCache();
+                        }
                         return $this;
                     } else {
                         self::error($this->_oSTH->errorInfo());
@@ -771,6 +794,10 @@ class PdoWrapper extends PDO
                         // close pdo
                         $this->_oSTH->closeCursor();
                         // return this object
+                        if(is_callable(['VSDebug', 'logQuery']))
+                        {
+                            VSDebug::logQuery($this->sSql, $aWhere);
+                        }
                         return $this;
                     } else {
                         self::error($this->_oSTH->errorInfo());
@@ -835,11 +862,17 @@ class PdoWrapper extends PDO
             // pdo prepare statement
             $this->_oSTH = $this->prepare($this->sSql);
             try {
-                if ($this->_oSTH->execute()) {
+                if ($this->_oSTH->execute()) 
+                {
                     // fetch array result
                     $this->aResults = $this->_oSTH->fetch();
                     // close pdo
                     $this->_oSTH->closeCursor();
+                    
+                    if(is_callable(['VSDebug', 'logQuery']))
+                    {
+                        VSDebug::logQuery($this->sSql);
+                    }
                     // return number of count
                     return $this->aResults['NUMROWS'];
                 } else {
@@ -872,6 +905,10 @@ class PdoWrapper extends PDO
                     // close pdo
                     $this->_oSTH->closeCursor();
                     // return number of count
+                    if(is_callable(['VSDebug', 'logQuery']))
+                    {
+                        VSDebug::logQuery($this->sSql);
+                    }
                     return true;
                 } else {
                     self::error($this->_oSTH->errorInfo());
@@ -904,6 +941,10 @@ class PdoWrapper extends PDO
                     // close pdo
                     $this->_oSTH->closeCursor();
                     // return number of count
+                    if(is_callable(['VSDebug', 'logQuery']))
+                    {
+                        VSDebug::logQuery($this->sSql);
+                    }
                     return true;
                 } else {
                     self::error($this->_oSTH->errorInfo());
@@ -1199,4 +1240,4 @@ class PdoWrapper extends PDO
     {
         return PDO::quote($string);
     }
-}; /** Class End **/
+}
